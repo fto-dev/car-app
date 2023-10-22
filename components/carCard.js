@@ -60,11 +60,6 @@ export default function CarCard({ item }) {
 								</tr>
 							</tbody>
 						</Table>
-
-						<div className="btn btn-link text-info px-0">
-							<small className="text-body-secondary"></small>
-							Add Favorite
-						</div>
 					</div>
 				</div>
 			</div>
