@@ -30,9 +30,21 @@ export default function Home() {
 	};
 
 	const filterByNameAndOrigin = (regex) => {
+	/* @todo change filter name */
+	const filterByNameAndOrigin = (mode, regex) => {
 		const filter = allCarList.filter((item, index) => {
 			if (item.Name.match(regex) || item.Origin.match(regex)) {
 				return item;
+			if (item[mode] == null) return false;
+
+			if (mode.length == 0) {
+				if (item.Name.match(regex) || item.Origin.match(regex)) {
+					return true;
+				}
+			} else {
+				if (item[mode].toString().match(regex)) {
+					return true;
+				}
 			}
 		});
 

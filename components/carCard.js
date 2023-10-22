@@ -47,7 +47,7 @@ export default function CarCard({ item }) {
 									<td>{item.Horsepower}</td>
 								</tr>
 								<tr>
-									<td>Weight_in_lbs</td>
+									<td>Weight In Lbs</td>
 									<td>{item.Weight_in_lbs}</td>
 								</tr>
 								<tr>
