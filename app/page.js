@@ -10,6 +10,12 @@ import Mainpage from "@/components/home";
 import Favorites from "@/components/favorites";
 import { FavoriteProvider } from "@/context/favoriteContext";
 
+import dynamic from "next/dynamic";
+
+const ToastContainer = dynamic(() =>
+	import("react-toastify").then((toastify) => toastify.ToastContainer)
+);
+
 export default function Home() {
 	const [show, setShow] = useState(false);
 
@@ -27,6 +33,7 @@ export default function Home() {
 	return (
 		<main className={styles.main}>
 			<FavoriteProvider>
+				<ToastContainer />
 				<Router>
 					<Header
 						Link={Link}

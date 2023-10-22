@@ -1,3 +1,4 @@
+import Toaster from "@/utils/toaster";
 import React, { createContext, useContext, useEffect, useState } from "react";
 
 const FavoriteContext = createContext();
@@ -22,12 +23,14 @@ export const FavoriteProvider = ({ children }) => {
 	const addFavorite = (item) => {
 		const updatedList = [...list, item];
 		setList(updatedList);
+		Toaster.success(`${item.Id} is added successfully.`);
 	};
 	const removeFavorite = (id) => {
 		const updatedList = list.filter((item, index) => {
 			return id != item.Id;
 		});
 		setList(updatedList);
+		Toaster.success(`${id} is removed successfully.`);
 	};
 	const clearFavorites = () => {
 		setList([]);

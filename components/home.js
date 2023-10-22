@@ -75,7 +75,10 @@ export default function Home({ offCanvasShow, handleClose }) {
 					<div>
 						{list.map((item, index) => {
 							return (
-								<div className="card mb-3 ">
+								<div
+									className="card mb-3"
+									key={index}
+								>
 									<div className="row g-0">
 										<div className="col-auto d-flex align-items-center">
 											<div className="px-3">
