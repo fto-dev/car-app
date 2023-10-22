@@ -44,7 +44,10 @@ export default function Search({ filter, resetFilter }) {
 	}, []);
 
 	useEffect(() => {
-		!isInputTextValueEmpty() ? filter(advanceSearch.value, regex) : null;
+		const isAdvanceSearch = searchType == searchTypes.advanved;
+		!isInputTextValueEmpty()
+			? filter(isAdvanceSearch, advanceSearch.value, regex)
+			: null;
 	}, [searchValue]);
 
 	useEffect(() => {
@@ -75,63 +78,48 @@ export default function Search({ filter, resetFilter }) {
 
 			<Row>
 				<Col>
-					{searchType == searchTypes.simple ? (
-						<Form.Group
-							className=""
-							controlId="formBasicEmail"
-						>
-							<Form.Control
-								type="text"
-								placeholder="Search with Name or Origin"
-								onChange={(e) => {
-									setSearchValue(e.target.value);
-								}}
-							/>
-						</Form.Group>
-					) : (
-						<Row>
-							<Col>
+					<Row>
+						<Col>
+							<Form.Group
+								className=""
+								controlId="formBasicEmail"
+							>
+								<Form.Control
+									type="text"
+									placeholder={inputPlaceholder}
+									value={searchValue}
+									onChange={(e) => {
+										setSearchValue(e.target.value);
+									}}
+								/>
+							</Form.Group>
+						</Col>
+						{carModel.length != 0 && searchType == searchTypes.advanved && (
+							<Col xs={"auto"}>
 								<Form.Group
-									className=""
-									controlId="formBasicEmail"
+									as={Col}
+									controlId="my_multiselect_field"
 								>
 									<Form.Control
-										type="text"
-										placeholder={inputPlaceholder}
-										value={searchValue}
+										as="select"
+										value={advanceSearch.value}
 										onChange={(e) => {
-											setSearchValue(e.target.value);
+											setAdvanceSearch(carModel[e.target.selectedIndex]);
 										}}
-									/>
+									>
+										{carModel.map((item, index) => (
+											<option
+												key={index}
+												value={item.value}
+											>
+												{item.name}
+											</option>
+										))}
+									</Form.Control>
 								</Form.Group>
 							</Col>
-							{carModel.length != 0 && (
-								<Col xs={"auto"}>
-									<Form.Group
-										as={Col}
-										controlId="my_multiselect_field"
-									>
-										<Form.Control
-											as="select"
-											value={advanceSearch.value}
-											onChange={(e) => {
-												setAdvanceSearch(carModel[e.target.selectedIndex]);
-											}}
-										>
-											{carModel.map((item, index) => (
-												<option
-													key={index}
-													value={item.value}
-												>
-													{item.name}
-												</option>
-											))}
-										</Form.Control>
-									</Form.Group>
-								</Col>
-							)}
-						</Row>
-					)}
+						)}
+					</Row>
 				</Col>
 				<Col xs={"auto"}>
 					<Button

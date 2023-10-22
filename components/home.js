@@ -29,17 +29,16 @@ export default function Home() {
 		setFiltredCarList(allCarList);
 	};
 
-	/* @todo change filter name */
-	const filterByNameAndOrigin = (mode, regex) => {
+	const filter = (isAdvanceSearch, mode, regex) => {
 		const filter = allCarList.filter((item, index) => {
 			if (item[mode] == null) return false;
 
-			if (mode.length == 0) {
-				if (item.Name.match(regex) || item.Origin.match(regex)) {
+			if (isAdvanceSearch) {
+				if (item[mode].toString().match(regex)) {
 					return true;
 				}
 			} else {
-				if (item[mode].toString().match(regex)) {
+				if (item.Name.match(regex) || item.Origin.match(regex)) {
 					return true;
 				}
 			}
@@ -53,7 +52,7 @@ export default function Home() {
 			<Container>
 				<div className="mt-4">
 					<Search
-						filter={filterByNameAndOrigin}
+						filter={filter}
 						resetFilter={resetFilter}
 					/>
 				</div>
