@@ -2,6 +2,7 @@ import fsPromises from "fs/promises";
 import path from "path";
 
 const dataFilePath = path.join(process.cwd(), "/json/userData.json");
+
 export async function getJsonData() {
 	const jsonData = await fsPromises.readFile(dataFilePath);
 	const objectData = JSON.parse(jsonData);
@@ -9,25 +10,26 @@ export async function getJsonData() {
 }
 
 export async function findIndex(id) {
-	const resultData = await getJsonData();
+	const getLocalJsonData = await getJsonData();
 
-	const selectedIndex = resultData.findIndex((item) => item.Id == id);
+	const selectedIndex = getLocalJsonData.findIndex((item) => item.Id == id);
 	return selectedIndex;
 }
 
 export async function getLastId() {
-	const resultData = await getJsonData();
-	return resultData.length;
+	const getLocalJsonData = await getJsonData();
+	return getLocalJsonData.length;
 }
 
-export async function addData(bodyModel) {
-	const resultData = await getJsonData();
+export async function addItem(bodyModel) {
+	const getLocalJsonData = await getJsonData();
 	const Id = await getLastId();
 	const newData = { ...bodyModel, Id };
-	resultData.push(newData);
+	// @todo: refactor const newLocalJsonData =
+	getLocalJsonData.push(newData);
 
 	return new Promise((resolve, reject) => {
-		writeFile(resultData)
+		writeFile(getLocalJsonData)
 			.then(() => {
 				resolve(bodyModel);
 			})
@@ -37,12 +39,12 @@ export async function addData(bodyModel) {
 	});
 }
 
-export async function updateData(index, bodyModel) {
-	const resultData = await getJsonData();
-	resultData[index] = bodyModel;
+export async function updateItem(index, bodyModel) {
+	const getLocalJsonData = await getJsonData();
+	getLocalJsonData[index] = bodyModel;
 
 	return new Promise((resolve, reject) => {
-		writeFile(resultData)
+		writeFile(getLocalJsonData)
 			.then(() => {
 				resolve(bodyModel);
 			})
@@ -53,18 +55,21 @@ export async function updateData(index, bodyModel) {
 }
 
 export async function removeItem(Id) {
+	const getLocalJsonData = await getJsonData();
 	const index = await findIndex(Id);
-	const resultData = await getJsonData();
 
-	resultData.splice(index, 1);
+	if (index > -1) {
+		getLocalJsonData.splice(index, 1);
+	}
 
 	return new Promise((resolve, reject) => {
-		writeFile(resultData)
+		if (index == -1) return resolve(`${Id} index number couldn't find.`);
+		writeFile(getLocalJsonData)
 			.then(() => {
 				resolve(`${index} index number item is removed`);
 			})
 			.catch(() => {
-				reject("File write unsuccesfull, Error storing data.");
+				reject("File write unsuccessful, Error storing data.");
 			});
 	});
 }
