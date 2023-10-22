@@ -1,36 +1,75 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## Car Project
 
-## Getting Started
+Add, edit, remove car using next api with local JSON file.
 
-First, run the development server:
+### Package list
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- react-bootstrap
+- bootstrap
+- next
+- react
+- react-router
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### NEXT API
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+Default port is 3000.
+Example URL: `http://localhost:3000/api/car`
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+### API Endpoint List
 
-## Learn More
+`/api/cars`
+`Type: GET`
+` Description: Return all car list's JSON`
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+`/api/cars`
+`Type: POST`
+`BODY: {OBJECT}`
+` Description: Create new car with object`
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+Example BODY: `
+{
+    "Name":"Test data Q2Q",
+    "Miles_per_Gallon":18,
+    "Cylinders":8,
+    "Displacement":307,
+    "Horsepower":130,
+    "Weight_in_lbs":3504,
+    "Acceleration":12,
+    "Year":"2023-01-01",
+    "Origin":"Malaysia"
+}`
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+`/api/cars`
+`Type: PUT`
+`BODY: {OBJECT}`
+` Description: Update car object with ID number`
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Example BODY: `
+{
+    "Id": 406,
+    "Name": "Update Item",
+    "Miles_per_Gallon": 1,
+    "Cylinders": 2,
+    "Displacement": 3,
+    "Horsepower": 4,
+    "Weight_in_lbs": 5,
+    "Acceleration": 6,
+    "Year": "1970-01-01",
+    "Origin": "USA"
+}`
+
+---
+
+`/api/cars`
+`Type: DELETE`
+`BODY: {OBJECT}`
+` Description: Delete car object with ID number`
+
+Example BODY: `
+{
+    "Id": 402
+}`
