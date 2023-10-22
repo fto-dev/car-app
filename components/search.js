@@ -17,10 +17,6 @@ export default function Search({ filter, resetFilter }) {
 	const [advanceSearch, setAdvanceSearch] = useState(
 		defaultAdvanceSearchObject
 	);
-	const [inputPlaceholder, setInputPlaceholder] = useState("");
-	const [switchButtonContent, setSwitchButtonContent] = useState(
-		"Switch to Advance Search"
-	);
 
 	const regex = new RegExp(searchValue, "gi");
 
@@ -53,13 +49,6 @@ export default function Search({ filter, resetFilter }) {
 	useEffect(() => {
 		resetFilter();
 		setSearchValue("");
-		if (searchType == searchTypes.simple) {
-			setSwitchButtonContent("Switch to Advance Search");
-			setInputPlaceholder("Search with Name or Origin");
-		} else {
-			setSwitchButtonContent("Switch to Simple Search");
-			setInputPlaceholder(`Search with ${advanceSearch.name}`);
-		}
 	}, [advanceSearch]);
 
 	const handleSwitchButton = () => {
@@ -86,7 +75,11 @@ export default function Search({ filter, resetFilter }) {
 							>
 								<Form.Control
 									type="text"
-									placeholder={inputPlaceholder}
+									placeholder={
+										searchType == searchTypes.simple
+											? "Search with Name or Origin"
+											: `Search with ${advanceSearch.name}`
+									}
 									value={searchValue}
 									onChange={(e) => {
 										setSearchValue(e.target.value);
@@ -98,7 +91,7 @@ export default function Search({ filter, resetFilter }) {
 							<Col xs={"auto"}>
 								<Form.Group
 									as={Col}
-									controlId="my_multiselect_field"
+									controlId=""
 								>
 									<Form.Control
 										as="select"
@@ -127,7 +120,9 @@ export default function Search({ filter, resetFilter }) {
 						type="button"
 						onClick={handleSwitchButton}
 					>
-						{switchButtonContent}
+						{searchType == searchTypes.simple
+							? "Switch to Advance Search"
+							: "Switch to Simple Search"}
 					</Button>
 				</Col>
 			</Row>

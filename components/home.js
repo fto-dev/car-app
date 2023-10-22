@@ -5,16 +5,17 @@ import { getCars } from "@/services/api";
 import CarCard from "./carCard";
 import Search from "./search";
 
+let allCarList;
+
 export default function Home() {
 	const [isLoading, setIsLoading] = useState(true);
 
-	const [allCarList, setAllCarList] = useState([]);
 	const [filtredCarList, setFiltredCarList] = useState([]);
 
 	useEffect(() => {
 		getCars()
 			.then((response) => {
-				setAllCarList(response.data);
+				allCarList = response.data;
 				setFiltredCarList(response.data);
 			})
 			.catch(function (error) {
