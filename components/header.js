@@ -7,9 +7,12 @@ import NavDropdown from "react-bootstrap/NavDropdown";
 
 import { Button } from "react-bootstrap";
 import { useLocation } from "react-router-dom";
+import { useFavoriteContext } from "@/context/favoriteContext";
 
 function Header({ Link, offCanvasToggle }) {
 	const location = useLocation();
+
+	const { list, removeFavorite } = useFavoriteContext();
 
 	return (
 		<Navbar
@@ -30,7 +33,7 @@ function Header({ Link, offCanvasToggle }) {
 							className="nav-link"
 							to="/favorites"
 						>
-							Your Favorite Cars (5)
+							Your Favorite Cars ({list.length})
 						</Link>
 					</Nav>
 
