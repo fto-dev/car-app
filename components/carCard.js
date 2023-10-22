@@ -1,8 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import { Table } from "react-bootstrap";
+import { useLocation } from "react-router-dom";
+import { useFavoriteContext } from "@/context/favoriteContext";
 
 export default function CarCard({ item }) {
+	const location = useLocation();
+	const { list, addFavorite, removeFavorite } = useFavoriteContext();
+	const [isFilterListCardType, setIsFilterListCardType] = useState(
+		location.pathname != "/favorites" ? true : false
+	);
+
 	return (
 		<div className="card mb-3">
 			<div className="row g-0">
@@ -61,10 +69,27 @@ export default function CarCard({ item }) {
 							</tbody>
 						</Table>
 
-						<div className="btn btn-link text-info px-0">
-							<small className="text-body-secondary"></small>
-							Add Favorite
-						</div>
+						{isFilterListCardType ? (
+							<div
+								className="btn btn-link text-info px-0"
+								onClick={() => {
+									addFavorite(item);
+								}}
+							>
+								<small className="text-body-secondary"></small>
+								Add Favorite
+							</div>
+						) : (
+							<div
+								className="btn btn-link text-danger px-0"
+								onClick={() => {
+									removeFavorite(item.Id);
+								}}
+							>
+								<small className="text-body-secondary"></small>
+								Remove Favorite
+							</div>
+						)}
 					</div>
 				</div>
 			</div>
