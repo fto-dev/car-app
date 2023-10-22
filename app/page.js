@@ -8,6 +8,7 @@ import Header from "@/components/header";
 
 import Mainpage from "@/components/home";
 import Favorites from "@/components/favorites";
+import { FavoriteProvider } from "@/context/favoriteContext";
 
 export default function Home() {
 	const [show, setShow] = useState(false);
@@ -25,27 +26,29 @@ export default function Home() {
 
 	return (
 		<main className={styles.main}>
-			<Router>
-				<Header
-					Link={Link}
-					offCanvasToggle={offCanvasToggle}
-				/>
-				<Routes>
-					<Route
-						path="/"
-						element={
-							<Mainpage
-								offCanvasShow={show}
-								handleClose={handleClose}
-							/>
-						}
+			<FavoriteProvider>
+				<Router>
+					<Header
+						Link={Link}
+						offCanvasToggle={offCanvasToggle}
 					/>
-					<Route
-						path="favorites"
-						element={<Favorites />}
-					/>
-				</Routes>
-			</Router>
+					<Routes>
+						<Route
+							path="/"
+							element={
+								<Mainpage
+									offCanvasShow={show}
+									handleClose={handleClose}
+								/>
+							}
+						/>
+						<Route
+							path="favorites"
+							element={<Favorites />}
+						/>
+					</Routes>
+				</Router>
+			</FavoriteProvider>
 		</main>
 	);
 }
