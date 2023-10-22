@@ -1,6 +1,6 @@
 ## Car Project
 
-Add, edit, remove car using next api with local JSON file.
+Add, edit, remove car using next api with local JSON file. You can add or remove your favorites. When close your browser tab your all favorites are removed.
 
 ### Package list
 
@@ -9,6 +9,7 @@ Add, edit, remove car using next api with local JSON file.
 - next
 - react
 - react-router
+- react-toastify
 
 ### NEXT API
 
