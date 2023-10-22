@@ -18,7 +18,9 @@ export default function Search({ filter, resetFilter }) {
 		defaultAdvanceSearchObject
 	);
 
-	const regex = new RegExp(searchValue, "gi");
+	const escapeRegexSpecialChars = (input) =>
+		input.replace(/([.*+?^=!:${}()|[\]\/\\])/g, "\\$1");
+	const regex = new RegExp(escapeRegexSpecialChars(searchValue), "gi");
 
 	const isInputTextValueEmpty = () => {
 		if (searchValue.length == 0) {
