@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Container, Col, Row } from "react-bootstrap";
+import Container from "react-bootstrap/Container";
+import { Form, Button, Col, ListGroup, Row, Offcanvas } from "react-bootstrap";
 
 import { getCars } from "@/services/api";
 import CarCard from "./carCard";
@@ -7,10 +8,17 @@ import Search from "./search";
 
 let allCarList;
 
-export default function Home() {
+export default function Home({ offCanvasShow, handleClose }) {
 	const [isLoading, setIsLoading] = useState(true);
 
+	const [show, setShow] = useState(offCanvasShow);
 	const [filtredCarList, setFiltredCarList] = useState([]);
+
+	useEffect(() => {
+		setShow(offCanvasShow);
+	}, [offCanvasShow]);
+
+	useEffect(() => {}, [filtredCarList]);
 
 	useEffect(() => {
 		getCars()
@@ -19,7 +27,7 @@ export default function Home() {
 				setFiltredCarList(response.data);
 			})
 			.catch(function (error) {
-				console.error(error);
+				console.log(error);
 			})
 			.finally(() => {
 				setIsLoading(false);
@@ -50,8 +58,376 @@ export default function Home() {
 
 	return (
 		<>
+			<Offcanvas
+				show={show}
+				onHide={handleClose}
+			>
+				<Offcanvas.Header closeButton>
+					<Offcanvas.Title>Your Favorite Car List</Offcanvas.Title>
+				</Offcanvas.Header>
+				<Offcanvas.Body>
+					<div>
+						<div className="card mb-3 ">
+							<div className="row g-0">
+								<div className="col-auto d-flex align-items-center">
+									<div className="px-3">
+										<Image
+											className="img-fluid rounded-start"
+											src={"/bmw.png"}
+											width={50}
+											height={50}
+											alt="BMW"
+										/>
+									</div>
+								</div>
+								<div className="col-md-8">
+									<div className="card-body">
+										<h5 className="card-title mb-0">Card title</h5>
+
+										<div className="btn btn-link text-danger px-0">
+											<small className="text-body-secondary"></small>
+											Remove Favorite
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div className="card mb-3 mt-3">
+							<div className="row g-0">
+								<div className="col-auto d-flex align-items-center">
+									<div className="px-3">
+										<Image
+											className="img-fluid rounded-start"
+											src={"/bmw.png"}
+											width={50}
+											height={50}
+											alt="BMW"
+										/>
+									</div>
+								</div>
+								<div className="col-md-8">
+									<div className="card-body">
+										<h5 className="card-title mb-0">Card title</h5>
+
+										<div className="btn btn-link text-danger px-0">
+											<small className="text-body-secondary"></small>
+											Remove Favorite
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div className="card mb-3 mt-3">
+							<div className="row g-0">
+								<div className="col-auto d-flex align-items-center">
+									<div className="px-3">
+										<Image
+											className="img-fluid rounded-start"
+											src={"/bmw.png"}
+											width={50}
+											height={50}
+											alt="BMW"
+										/>
+									</div>
+								</div>
+								<div className="col-md-8">
+									<div className="card-body">
+										<h5 className="card-title mb-0">Card title</h5>
+
+										<div className="btn btn-link text-danger px-0">
+											<small className="text-body-secondary"></small>
+											Remove Favorite
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div className="card mb-3 mt-3">
+							<div className="row g-0">
+								<div className="col-auto d-flex align-items-center">
+									<div className="px-3">
+										<Image
+											className="img-fluid rounded-start"
+											src={"/bmw.png"}
+											width={50}
+											height={50}
+											alt="BMW"
+										/>
+									</div>
+								</div>
+								<div className="col-md-8">
+									<div className="card-body">
+										<h5 className="card-title mb-0">Card title</h5>
+
+										<div className="btn btn-link text-danger px-0">
+											<small className="text-body-secondary"></small>
+											Remove Favorite
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div className="card mb-3 mt-3">
+							<div className="row g-0">
+								<div className="col-auto d-flex align-items-center">
+									<div className="px-3">
+										<Image
+											className="img-fluid rounded-start"
+											src={"/bmw.png"}
+											width={50}
+											height={50}
+											alt="BMW"
+										/>
+									</div>
+								</div>
+								<div className="col-md-8">
+									<div className="card-body">
+										<h5 className="card-title mb-0">Card title</h5>
+
+										<div className="btn btn-link text-danger px-0">
+											<small className="text-body-secondary"></small>
+											Remove Favorite
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div className="card mb-3 mt-3">
+							<div className="row g-0">
+								<div className="col-auto d-flex align-items-center">
+									<div className="px-3">
+										<Image
+											className="img-fluid rounded-start"
+											src={"/bmw.png"}
+											width={50}
+											height={50}
+											alt="BMW"
+										/>
+									</div>
+								</div>
+								<div className="col-md-8">
+									<div className="card-body">
+										<h5 className="card-title mb-0">Card title</h5>
+
+										<div className="btn btn-link text-danger px-0">
+											<small className="text-body-secondary"></small>
+											Remove Favorite
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div className="card mb-3 mt-3">
+							<div className="row g-0">
+								<div className="col-auto d-flex align-items-center">
+									<div className="px-3">
+										<Image
+											className="img-fluid rounded-start"
+											src={"/bmw.png"}
+											width={50}
+											height={50}
+											alt="BMW"
+										/>
+									</div>
+								</div>
+								<div className="col-md-8">
+									<div className="card-body">
+										<h5 className="card-title mb-0">Card title</h5>
+
+										<div className="btn btn-link text-danger px-0">
+											<small className="text-body-secondary"></small>
+											Remove Favorite
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div className="card mb-3 mt-3">
+							<div className="row g-0">
+								<div className="col-auto d-flex align-items-center">
+									<div className="px-3">
+										<Image
+											className="img-fluid rounded-start"
+											src={"/bmw.png"}
+											width={50}
+											height={50}
+											alt="BMW"
+										/>
+									</div>
+								</div>
+								<div className="col-md-8">
+									<div className="card-body">
+										<h5 className="card-title mb-0">Card title</h5>
+
+										<div className="btn btn-link text-danger px-0">
+											<small className="text-body-secondary"></small>
+											Remove Favorite
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div className="card mb-3 mt-3">
+							<div className="row g-0">
+								<div className="col-auto d-flex align-items-center">
+									<div className="px-3">
+										<Image
+											className="img-fluid rounded-start"
+											src={"/bmw.png"}
+											width={50}
+											height={50}
+											alt="BMW"
+										/>
+									</div>
+								</div>
+								<div className="col-md-8">
+									<div className="card-body">
+										<h5 className="card-title mb-0">Card title</h5>
+
+										<div className="btn btn-link text-danger px-0">
+											<small className="text-body-secondary"></small>
+											Remove Favorite
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div className="card mb-3 mt-3">
+							<div className="row g-0">
+								<div className="col-auto d-flex align-items-center">
+									<div className="px-3">
+										<Image
+											className="img-fluid rounded-start"
+											src={"/bmw.png"}
+											width={50}
+											height={50}
+											alt="BMW"
+										/>
+									</div>
+								</div>
+								<div className="col-md-8">
+									<div className="card-body">
+										<h5 className="card-title mb-0">Card title</h5>
+
+										<div className="btn btn-link text-danger px-0">
+											<small className="text-body-secondary"></small>
+											Remove Favorite
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div className="card mb-3 mt-3">
+							<div className="row g-0">
+								<div className="col-auto d-flex align-items-center">
+									<div className="px-3">
+										<Image
+											className="img-fluid rounded-start"
+											src={"/bmw.png"}
+											width={50}
+											height={50}
+											alt="BMW"
+										/>
+									</div>
+								</div>
+								<div className="col-md-8">
+									<div className="card-body">
+										<h5 className="card-title mb-0">Card title</h5>
+
+										<div className="btn btn-link text-danger px-0">
+											<small className="text-body-secondary"></small>
+											Remove Favorite
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div className="card mb-3 mt-3">
+							<div className="row g-0">
+								<div className="col-auto d-flex align-items-center">
+									<div className="px-3">
+										<Image
+											className="img-fluid rounded-start"
+											src={"/bmw.png"}
+											width={50}
+											height={50}
+											alt="BMW"
+										/>
+									</div>
+								</div>
+								<div className="col-md-8">
+									<div className="card-body">
+										<h5 className="card-title mb-0">Card title</h5>
+
+										<div className="btn btn-link text-danger px-0">
+											<small className="text-body-secondary"></small>
+											Remove Favorite
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div className="card mb-3 mt-3">
+							<div className="row g-0">
+								<div className="col-auto d-flex align-items-center">
+									<div className="px-3">
+										<Image
+											className="img-fluid rounded-start"
+											src={"/bmw.png"}
+											width={50}
+											height={50}
+											alt="BMW"
+										/>
+									</div>
+								</div>
+								<div className="col-md-8">
+									<div className="card-body">
+										<h5 className="card-title mb-0">Card title</h5>
+
+										<div className="btn btn-link text-danger px-0">
+											<small className="text-body-secondary"></small>
+											Remove Favorite
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div className="card mb-3 mt-3">
+							<div className="row g-0">
+								<div className="col-auto d-flex align-items-center">
+									<div className="px-3">
+										<Image
+											className="img-fluid rounded-start"
+											src={"/bmw.png"}
+											width={50}
+											height={50}
+											alt="BMW"
+										/>
+									</div>
+								</div>
+								<div className="col-md-8">
+									<div className="card-body">
+										<h5 className="card-title mb-0">Card title</h5>
+
+										<div className="btn btn-link text-danger px-0">
+											<small className="text-body-secondary"></small>
+											Remove Favorite
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</Offcanvas.Body>
+			</Offcanvas>
+
 			<Container>
-				<div className="mt-4">
+				<div className=" mt-5">
 					<Search
 						filter={filter}
 						resetFilter={resetFilter}

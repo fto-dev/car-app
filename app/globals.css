@@ -1,5 +1,14 @@
 :root {}
 
+.text-favorite{
+    color: rgb(211,	24,	109)
+}
+
+.button-favorite{
+    width: 35px;
+    cursor: pointer;
+}
+
 .card-title{
     text-transform: capitalize;
 }
