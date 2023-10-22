@@ -4,24 +4,26 @@ import { Form, Button, Col, ListGroup, Row, Offcanvas } from "react-bootstrap";
 
 import { getCars } from "@/services/api";
 import CarCard from "./carCard";
+import Search from "./search";
 
 export default function Home({ offCanvasShow, handleClose }) {
 	const [isLoading, setIsLoading] = useState(true);
 
 	const [show, setShow] = useState(offCanvasShow);
 	const [allCarList, setAllCarList] = useState([]);
-	const [filtredCarList, setfiltredCarList] = useState([]);
+	const [filtredCarList, setFiltredCarList] = useState([]);
 
 	useEffect(() => {
 		setShow(offCanvasShow);
 	}, [offCanvasShow]);
 
+	useEffect(() => {}, [filtredCarList]);
+
 	useEffect(() => {
-		//setAllCarList
 		getCars()
 			.then((response) => {
 				setAllCarList(response.data);
-				setfiltredCarList(response.data);
+				setFiltredCarList(response.data);
 			})
 			.catch(function (error) {
 				console.log(error);
@@ -30,6 +32,20 @@ export default function Home({ offCanvasShow, handleClose }) {
 				setIsLoading(false);
 			});
 	}, []);
+
+	const resetFilter = () => {
+		setFiltredCarList(allCarList);
+	};
+
+	const filterByNameAndOrigin = (regex) => {
+		const filter = allCarList.filter((item, index) => {
+			if (item.Name.match(regex) || item.Origin.match(regex)) {
+				return item;
+			}
+		});
+
+		setFiltredCarList(filter);
+	};
 
 	return (
 		<>
@@ -403,24 +419,16 @@ export default function Home({ offCanvasShow, handleClose }) {
 
 			<Container>
 				<div className=" mt-5">
-					<p>
-						You can write below input and search all cars with name and origin.
-					</p>
-					<Form.Group
-						className=""
-						controlId="formBasicEmail"
-					>
-						<Form.Control
-							type="text"
-							placeholder="You can search by name or origin"
-						/>
-					</Form.Group>
+					<Search
+						filter={filterByNameAndOrigin}
+						resetFilter={resetFilter}
+					/>
 				</div>
 
 				<div className="mt-5">
 					<h5>
 						Filtred Car List
-						{isLoading ? "Loading..." : ` (${allCarList.length})`}
+						{isLoading ? "Loading..." : ` (${filtredCarList.length})`}
 					</h5>
 
 					<Row>
