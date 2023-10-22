@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import Image from "next/image";
 import Container from "react-bootstrap/Container";
 import { Form, Button, Col, ListGroup, Row, Offcanvas } from "react-bootstrap";
 
