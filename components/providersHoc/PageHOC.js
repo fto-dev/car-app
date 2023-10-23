@@ -14,7 +14,7 @@ import "react-toastify/dist/ReactToastify.css";
 /* Custom Styles  */
 import "@/app/globals.css";
 
-const PageHOC = (Component) => {
+const PageHOC = (Component, displayName = "PageHOC") => {
 	const MyComponent = () => {
 		return (
 			<FavoriteProvider>
@@ -25,7 +25,7 @@ const PageHOC = (Component) => {
 		);
 	};
 
-	MyComponent.displayName = "MyComponent";
+	MyComponent.displayName = displayName;
 	return <MyComponent />;
 };
 
