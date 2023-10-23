@@ -20,37 +20,27 @@ export const FavoriteProvider = ({ children, values }) => {
 	const [offCanvasToggle, setOffCanvasToggle] = useState(false);
 
 	useEffect(() => {
-		debugger;
-		console.log(list);
-		setSessionStorage(list);
-
 		const sessionList = getSessionStorage();
-		console.log(sessionList);
-
-		debugger;
-	}, [list]);
-
-	useEffect(() => {
-		const sessionList = getSessionStorage();
-		debugger;
-		setList(sessionList);
+		sessionList && setList(sessionList);
 	}, []);
 
 	const addFavorite = (item) => {
 		const updatedList = [...list, item];
-		console.log(list);
-		debugger;
+
 		setList(updatedList);
+		setSessionStorage(updatedList);
 
 		Toaster.success(`${item.Id} is added successfully.`);
 	};
 	const removeFavorite = (id) => {
 		const updatedList = list.filter((item, index) => id != item.Id);
 		setList(updatedList);
+		setSessionStorage(updatedList);
 		Toaster.success(`${id} is removed successfully.`);
 	};
 	const clearFavorites = () => {
 		setList(defaultList);
+		setSessionStorage(defaultList);
 	};
 
 	const isFavorite = (id) => {
