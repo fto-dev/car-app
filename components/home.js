@@ -1,28 +1,27 @@
 import React, { useState, useEffect } from "react";
-import Image from "next/image";
-import Container from "react-bootstrap/Container";
-import { Form, Button, Col, ListGroup, Row, Offcanvas } from "react-bootstrap";
 
+import { Form, Button, Col, ListGroup, Row, Offcanvas } from "react-bootstrap";
+import Container from "react-bootstrap/Container";
+import Image from "next/image";
+
+import { useFavoriteContext } from "@/context/favoriteContext";
 import { getCars } from "@/services/api";
 import CarCard from "./carCard";
 import Search from "./search";
-import { useFavoriteContext } from "@/context/favoriteContext";
 
 let allCarList;
 
-export default function Home({ offCanvasShow, handleClose }) {
+export default function Home() {
+	const {
+		list,
+		removeFavorite,
+		offCanvasToggle,
+		setOffCanvasValue,
+		isFavorite,
+	} = useFavoriteContext();
+
 	const [isLoading, setIsLoading] = useState(true);
-
-	const [show, setShow] = useState(offCanvasShow);
 	const [filtredCarList, setFiltredCarList] = useState([]);
-
-	const { list, removeFavorite } = useFavoriteContext();
-
-	useEffect(() => {
-		setShow(offCanvasShow);
-	}, [offCanvasShow]);
-
-	useEffect(() => {}, [filtredCarList]);
 
 	useEffect(() => {
 		getCars()
@@ -63,8 +62,8 @@ export default function Home({ offCanvasShow, handleClose }) {
 	return (
 		<>
 			<Offcanvas
-				show={show}
-				onHide={handleClose}
+				show={offCanvasToggle}
+				onHide={setOffCanvasValue}
 			>
 				<Offcanvas.Header closeButton>
 					<Offcanvas.Title>
@@ -130,14 +129,21 @@ export default function Home({ offCanvasShow, handleClose }) {
 						{isLoading ? (
 							<h3>Loading...</h3>
 						) : (
-							filtredCarList.map((item, index) => (
-								<Col
-									md="6"
-									key={index}
-								>
-									<CarCard item={item} />
-								</Col>
-							))
+							filtredCarList.map((item, index) => {
+								const favorite = isFavorite(item.Id);
+
+								return (
+									<Col
+										md="6"
+										key={index}
+									>
+										<CarCard
+											item={item}
+											isFavorite={favorite}
+										/>
+									</Col>
+								);
+							})
 						)}
 					</Row>
 				</div>

@@ -20,6 +20,7 @@ export default function Search({ filter, resetFilter }) {
 
 	const escapeRegexSpecialChars = (input) =>
 		input.replace(/([.*+?^=!:${}()|[\]\/\\])/g, "\\$1");
+
 	const regex = new RegExp(escapeRegexSpecialChars(searchValue), "gi");
 
 	const isInputTextValueEmpty = () => {
