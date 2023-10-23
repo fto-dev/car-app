@@ -4,7 +4,8 @@ import Image from "next/image";
 import { useFavoriteContext } from "@/context/favoriteContext";
 import CarCard from "./carCard";
 export default function Favorites() {
-	const { list, removeFavorite, clearFavorites } = useFavoriteContext();
+	const { list, removeFavorite, clearFavorites, isFavorite } =
+		useFavoriteContext();
 	return (
 		<>
 			<Container>
@@ -21,12 +22,16 @@ export default function Favorites() {
 
 					<Row>
 						{list.map((item, index) => {
+							const favorite = isFavorite(item.Id);
 							return (
 								<Col
 									lg="4"
 									key={index}
 								>
-									<CarCard item={item} />
+									<CarCard
+										item={item}
+										isFavorite={favorite}
+									/>
 								</Col>
 							);
 						})}

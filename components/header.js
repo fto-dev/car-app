@@ -1,4 +1,3 @@
-"use client";
 import React from "react";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
@@ -6,13 +5,14 @@ import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 
 import { Button } from "react-bootstrap";
-import { useLocation } from "react-router-dom";
+import { useRouter } from "next/router";
 import { useFavoriteContext } from "@/context/favoriteContext";
 
-function Header({ Link, offCanvasToggle }) {
-	const location = useLocation();
+import Link from "next/link";
 
-	const { list, removeFavorite } = useFavoriteContext();
+function Header() {
+	const { pathname } = useRouter();
+	const { list, removeFavorite, setOffCanvasToggle } = useFavoriteContext();
 
 	return (
 		<Navbar
@@ -25,24 +25,28 @@ function Header({ Link, offCanvasToggle }) {
 					<Nav className="me-auto">
 						<Link
 							className="nav-link"
-							to="/"
+							href={{
+								pathname: "/",
+							}}
 						>
 							Home
 						</Link>
 						<Link
 							className="nav-link"
-							to="/favorites"
+							href={{
+								pathname: "/favorites",
+							}}
 						>
 							Your Favorite Cars ({list.length})
 						</Link>
 					</Nav>
 
-					{location.pathname != "/favorites" && (
+					{pathname != "/favorites" && (
 						<Nav className="ms-auto">
 							<div className="ml-auto">
 								<div
 									className="nav-link"
-									onClick={offCanvasToggle}
+									onClick={setOffCanvasToggle}
 								>
 									<div className="text-favorite button-favorite">
 										<svg

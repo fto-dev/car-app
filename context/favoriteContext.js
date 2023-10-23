@@ -1,42 +1,78 @@
 import Toaster from "@/utils/toaster";
 import React, { createContext, useContext, useEffect, useState } from "react";
+import { setSessionStorage, getSessionStorage } from "@/utils/storage";
 
-const FavoriteContext = createContext();
+const FavoriteContext = createContext(null);
 
 export const useFavoriteContext = () => {
 	const context = useContext(FavoriteContext);
+	if (context === null) {
+		throw new Error("FavoriteContext must be surrounded by FavoriteProvider.");
+		return;
+	}
+
 	return context;
 };
 
-export const FavoriteProvider = ({ children }) => {
-	const [list, setList] = useState([]);
+const defaultList = [];
+export const FavoriteProvider = ({ children, values }) => {
+	const [list, setList] = useState(defaultList);
+	const [offCanvasToggle, setOffCanvasToggle] = useState(false);
 
 	useEffect(() => {
-		sessionStorage.setItem("favorite", JSON.stringify(list));
+		debugger;
+		console.log(list);
+		setSessionStorage(list);
+
+		const sessionList = getSessionStorage();
+		console.log(sessionList);
+
+		debugger;
 	}, [list]);
 
 	useEffect(() => {
-		const sessionList = JSON.parse(sessionStorage.getItem("favorite"));
+		const sessionList = getSessionStorage();
+		debugger;
 		setList(sessionList);
 	}, []);
 
 	const addFavorite = (item) => {
 		const updatedList = [...list, item];
+		console.log(list);
+		debugger;
 		setList(updatedList);
+
 		Toaster.success(`${item.Id} is added successfully.`);
 	};
 	const removeFavorite = (id) => {
-		const updatedList = list.filter((item, index) => {
-			return id != item.Id;
-		});
+		const updatedList = list.filter((item, index) => id != item.Id);
 		setList(updatedList);
 		Toaster.success(`${id} is removed successfully.`);
 	};
 	const clearFavorites = () => {
-		setList([]);
+		setList(defaultList);
 	};
 
-	const value = { list, addFavorite, removeFavorite, clearFavorites };
+	const isFavorite = (id) => {
+		const index = list.findIndex((item) => item.Id == id);
+		return index > -1;
+	};
+
+	const value = {
+		list,
+		addFavorite,
+		removeFavorite,
+		clearFavorites,
+		offCanvasToggle,
+		setOffCanvasToggle: () => {
+			setOffCanvasToggle(!offCanvasToggle);
+		},
+		setOffCanvasValue: (value) => {
+			setOffCanvasToggle(value);
+		},
+		isFavorite,
+		...values,
+	};
 	return (
 		<FavoriteContext.Provider value={value}>
 			{children}

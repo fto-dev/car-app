@@ -1,15 +1,33 @@
-import React, { useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import Image from "next/image";
 import { Table } from "react-bootstrap";
-import { useLocation } from "react-router-dom";
+
+import { useRouter } from "next/router";
 import { useFavoriteContext } from "@/context/favoriteContext";
 
-export default function CarCard({ item }) {
-	const location = useLocation();
+export default function CarCard({ item, isFavorite = false }) {
+	const { pathname } = useRouter();
 	const { list, addFavorite, removeFavorite } = useFavoriteContext();
-	const [isFilterListCardType, setIsFilterListCardType] = useState(
-		location.pathname != "/favorites" ? true : false
+
+	const [isFavoritePage, setisFavoritePage] = useState(
+		pathname === "/favorites" ? true : false
 	);
+
+	const handleClick = () => {
+		if (isFavoritePage) {
+			return;
+		}
+
+		isFavorite ? removeFavorite(item) : addFavorite(item);
+	};
+
+	const renderButtonText = useMemo(() => {
+		const addText = "Add Favorite";
+		const removeText = "Remove Favorite";
+
+		if (isFavoritePage) return removeText;
+		return isFavorite ? removeText : addText;
+	}, [isFavorite, isFavoritePage]);
 
 	return (
 		<div className="card mb-3">
@@ -34,6 +52,10 @@ export default function CarCard({ item }) {
 							hover
 						>
 							<tbody>
+								<tr>
+									<td>id</td>
+									<td>{item.Id}</td>
+								</tr>
 								<tr>
 									<td>Origin</td>
 									<td>{item.Origin}</td>
@@ -69,27 +91,13 @@ export default function CarCard({ item }) {
 							</tbody>
 						</Table>
 
-						{isFilterListCardType ? (
-							<div
-								className="btn btn-link text-info px-0"
-								onClick={() => {
-									addFavorite(item);
-								}}
-							>
-								<small className="text-body-secondary"></small>
-								Add Favorite
-							</div>
-						) : (
-							<div
-								className="btn btn-link text-danger px-0"
-								onClick={() => {
-									removeFavorite(item.Id);
-								}}
-							>
-								<small className="text-body-secondary"></small>
-								Remove Favorite
-							</div>
-						)}
+						<div
+							className="btn btn-link text-info px-0"
+							onClick={handleClick}
+						>
+							<small className="text-body-secondary"></small>
+							{renderButtonText}
+						</div>
 					</div>
 				</div>
 			</div>
