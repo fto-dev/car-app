@@ -14,11 +14,7 @@ export default function CarCard({ item, isFavorite = false }) {
 	);
 
 	const handleClick = () => {
-		if (isFavoritePage) {
-			return;
-		}
-
-		isFavorite ? removeFavorite(item) : addFavorite(item);
+		isFavorite ? removeFavorite(item.Id) : addFavorite(item);
 	};
 
 	const renderButtonText = useMemo(() => {
