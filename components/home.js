@@ -79,18 +79,7 @@ export default function Home() {
 									key={index}
 								>
 									<div className="row g-0">
-										<div className="col-auto d-flex align-items-center">
-											<div className="px-3">
-												<Image
-													className="img-fluid rounded-start"
-													src={"/bmw.png"}
-													width={50}
-													height={50}
-													alt="BMW"
-												/>
-											</div>
-										</div>
-										<div className="col-md-8">
+										<div className="col-md-12">
 											<div className="card-body">
 												<h5 className="card-title mb-0">{item.Name}</h5>
 
