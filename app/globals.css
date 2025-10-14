@@ -1,13 +1,21 @@
-:root {}
+:root {
+  --accent: #e0245e;
+}
 
-.text-favorite{
-    color: rgb(211,	24,	109)
+.favorite-length{
+    min-width: 27px; 
+    display: inline-flex;
 }
 
 .button-favorite{
     width: 35px;
     cursor: pointer;
+    stroke: var(--accent);
 }
+
+.button-favorite-filled{
+    fill: var(--accent);
+}   
 
 .card-title{
     text-transform: capitalize;

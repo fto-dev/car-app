@@ -1,0 +1,20 @@
+[
+    {
+        "UserName": "demouser",
+        "Password": "bazinga!",
+        "uniqeId": 0,
+        "status": "active"
+    },
+    {
+        "UserName": "demouser2",
+        "Password": "bazinga2!",
+        "uniqeId": 1,
+        "status": "deactive"
+    },
+    {
+        "UserName": "demouser3",
+        "Password": "bazinga3!",
+        "uniqeId": 2,
+        "status": "pending"
+    }
+ ]

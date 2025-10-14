@@ -1,7 +1,22 @@
+import { log } from "console";
 import fsPromises from "fs/promises";
 import path from "path";
 
 const dataFilePath = path.join(process.cwd(), "/json/userData.json");
+const userDataFilePath = path.join(process.cwd(), "/json/registeredUsers.json");
+
+export async function checkUser(userModel) {
+	const jsonData = await fsPromises.readFile(userDataFilePath);
+	const objectData = JSON.parse(jsonData);
+
+	const result = objectData.some(
+		(item) =>
+			item.UserName == userModel.nameValue &&
+			item.Password == userModel.passwordValue
+	);
+
+	return result;
+}
 
 export async function getJsonData() {
 	const jsonData = await fsPromises.readFile(dataFilePath);

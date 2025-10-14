@@ -13,13 +13,12 @@ import "react-toastify/dist/ReactToastify.css";
 
 /* Custom Styles  */
 import "@/app/globals.css";
-
-const PageHOC = (Component, displayName = "PageHOC") => {
+const PageHOC = (Component, displayName = "PageHOC", isHeader = true) => {
 	const MyComponent = () => {
 		return (
 			<FavoriteProvider>
 				<ToastContainer />
-				<Header />
+				{isHeader ? <Header /> : ""}
 				<Component />
 			</FavoriteProvider>
 		);

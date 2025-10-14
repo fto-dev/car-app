@@ -28,18 +28,7 @@ export default function CarCard({ item, isFavorite = false }) {
 	return (
 		<div className="card mb-3">
 			<div className="row g-0">
-				<div className="col-auto d-flex align-items-center">
-					<div className="px-3">
-						<Image
-							className="img-fluid rounded-start"
-							src={"/bmw.png"}
-							width={100}
-							height={100}
-							alt="BMW"
-						/>
-					</div>
-				</div>
-				<div className="col-md-8">
+				<div className="col-md-12">
 					<div className="card-body">
 						<h5 className="card-title">{item.Name}</h5>
 						<Table
@@ -49,7 +38,7 @@ export default function CarCard({ item, isFavorite = false }) {
 						>
 							<tbody>
 								<tr>
-									<td>id</td>
+									<td>ID</td>
 									<td>{item.Id}</td>
 								</tr>
 								<tr>

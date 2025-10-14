@@ -1,6 +1,12 @@
 import Toaster from "@/utils/toaster";
+import ConfirmModal from '@/utils/confirm';
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { setSessionStorage, getSessionStorage } from "@/utils/storage";
+
+
+import {
+	setFavoritesSessionStorage,
+	getFavoritesSessionStorage,
+} from "@/utils/storage";
 
 const FavoriteContext = createContext(null);
 
@@ -20,27 +26,27 @@ export const FavoriteProvider = ({ children, values }) => {
 	const [offCanvasToggle, setOffCanvasToggle] = useState(false);
 
 	useEffect(() => {
-		const sessionList = getSessionStorage();
+		const sessionList = getFavoritesSessionStorage();
 		sessionList && setList(sessionList);
 	}, []);
 
 	const addFavorite = (item) => {
 		const updatedList = [...list, item];
-
 		setList(updatedList);
-		setSessionStorage(updatedList);
+		setFavoritesSessionStorage(updatedList);
 
-		Toaster.success(`${item.Id} is added successfully.`);
+		Toaster.success(`ID: ${item.Id} is added successfully.`);
 	};
 	const removeFavorite = (id) => {
 		const updatedList = list.filter((item, index) => id != item.Id);
 		setList(updatedList);
-		setSessionStorage(updatedList);
-		Toaster.success(`${id} is removed successfully.`);
+		setFavoritesSessionStorage(updatedList);
+		Toaster.success(`ID: ${id} is removed successfully.`);
 	};
-	const clearFavorites = () => {
+	const clearFavorites = (e) => {
+		
 		setList(defaultList);
-		setSessionStorage(defaultList);
+		setFavoritesSessionStorage(defaultList);
 	};
 
 	const isFavorite = (id) => {

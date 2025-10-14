@@ -10,7 +10,7 @@ export function success(message) {
 
 export function error(message) {
 	toast.error(message, {
-		position: toast.POSITION.TOP_RIGHT, // Bildirimin pozisyonunu ayarlayabilirsiniz.
+		position: toast.POSITION.TOP_RIGHT,
 		autoClose: 1500,
 	});
 }
